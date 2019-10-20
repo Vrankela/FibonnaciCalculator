@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,17 @@ namespace TradingChallenge
     {
         private int _firstNumber;
         private string _operation = string.Empty;
+        private BackgroundWorker backgroundWorker;
         public CalculatorUserControl()
         {
             InitializeComponent();
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(BackGroundWorker_DoWork);
+            backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(BackGroundWorker_ProgressChanged);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackGroundWorker_RunWorkerCompleted);
+            backgroundWorker.WorkerReportsProgress = true;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,6 +59,7 @@ namespace TradingChallenge
             _operation = string.Empty;
             _firstNumber = 0;
             TextBox.Text = string.Empty;
+            Label.Content = string.Empty;
         }
 
         private void Button_Calculate(object sender, RoutedEventArgs e)
@@ -86,12 +96,6 @@ namespace TradingChallenge
         }
 
 
-        private void ButtonFib_Click(object sender, RoutedEventArgs e)
-        {
-            var result = FibonacciCalculate(int.Parse(TextBox.Text));
-
-            TextBox.Text = result.ToString();
-        }
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
@@ -111,20 +115,48 @@ namespace TradingChallenge
             }
             TextBox.Text = actualdata;
         }
-
-        private static ulong FibonacciCalculate(int n)
+        private void ButtonFib_Click(object sender, RoutedEventArgs e)
         {
-            const int ionMarketsExpectationAdjustment = 1;
-            n -= ionMarketsExpectationAdjustment;
+            if (!backgroundWorker.IsBusy)
+            {
+                backgroundWorker.RunWorkerAsync();
+            }
+        }
 
+        private ulong FibonacciCalculate(int n)
+        {
             double sqrt5 = Math.Sqrt(5);
             double p1 = (1 + sqrt5) / 2;
             double p2 = -1 * (p1 - 1);
 
 
-            double n1 = Math.Pow(p1, n + 1);
-            double n2 = Math.Pow(p2, n + 1);
+            double n1 = Math.Pow(p1, n);
+            double n2 = Math.Pow(p2, n);
             return (ulong)((n1 - n2) / sqrt5);
+        }
+
+        private void BackGroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Label.Content = "100 %";
+            var result = FibonacciCalculate(int.Parse(TextBox.Text));
+            TextBox.Text = result.ToString();
+        }
+
+        private void BackGroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Label.Content = e.ProgressPercentage.ToString() + "%";
+        }
+
+        private void BackGroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            //adding 5 second sleep
+            for (int i = 0; i < 100; ++i)
+            {
+                worker.ReportProgress(i);
+
+                System.Threading.Thread.Sleep(50);
+            }
         }
 
     }

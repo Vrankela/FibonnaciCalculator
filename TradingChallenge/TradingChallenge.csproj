@@ -74,6 +74,7 @@
     <Compile Include="CalculatorUserControl.xaml.cs">
       <DependentUpon>CalculatorUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CalculatorViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
