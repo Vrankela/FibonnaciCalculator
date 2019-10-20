@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace TradingChallenge
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CalculatorUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CalculatorUserControl : UserControl
     {
-        public MainWindow()
+        public CalculatorUserControl()
         {
             InitializeComponent();
-
         }
+
     }
 }
