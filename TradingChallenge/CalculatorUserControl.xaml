@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Name="TextBox" HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Name="TextBox" HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" TextChanged="TextBox_TextChanged" />
 
         <Button Grid.Column="0" Grid.Row="1" Content="Reset" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Click="ButtonReset_Click"/>
         <Button Grid.Column="0" Grid.Row="2" Content="Fib" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50"/>

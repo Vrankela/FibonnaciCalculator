@@ -89,9 +89,24 @@ namespace TradingChallenge
             throw new NotImplementedException();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            //TODO
+            string actualdata = string.Empty;
+            char[] entereddata = TextBox.Text.ToCharArray();
+            foreach (char aChar in entereddata.AsEnumerable())
+            {
+                if (Char.IsDigit(aChar))
+                {
+                    actualdata = actualdata + aChar;
+                }
+                else
+                {
+                    actualdata.Replace(aChar, ' ');
+                    actualdata.Trim();
+                }
+            }
+            TextBox.Text = actualdata;
         }
+
     }
 }
