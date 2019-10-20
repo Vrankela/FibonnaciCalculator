@@ -84,9 +84,13 @@ namespace TradingChallenge
 
             TextBox.Text = result.ToString();
         }
-        private void AddOperation()
+
+
+        private void ButtonFib_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var result = FibonacciCalculate(int.Parse(TextBox.Text));
+
+            TextBox.Text = result.ToString();
         }
 
         private void TextBox_TextChanged(object sender, EventArgs e)
@@ -106,6 +110,21 @@ namespace TradingChallenge
                 }
             }
             TextBox.Text = actualdata;
+        }
+
+        private static ulong FibonacciCalculate(int n)
+        {
+            const int ionMarketsExpectationAdjustment = 1;
+            n -= ionMarketsExpectationAdjustment;
+
+            double sqrt5 = Math.Sqrt(5);
+            double p1 = (1 + sqrt5) / 2;
+            double p2 = -1 * (p1 - 1);
+
+
+            double n1 = Math.Pow(p1, n + 1);
+            double n2 = Math.Pow(p2, n + 1);
+            return (ulong)((n1 - n2) / sqrt5);
         }
 
     }
